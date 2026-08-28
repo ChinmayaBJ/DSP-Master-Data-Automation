@@ -1,0 +1,35 @@
+{
+  "definitions": {
+    "ZV2_GLACCTHIER_NODETEXT": {
+      "kind": "entity",
+      "@EndUserText.label": "GL Account Hierarchy Node Text",
+      "@ObjectModel.modelingPattern": { "#": "ANALYTICAL_DIMENSION" },
+      "@ObjectModel.supportedCapabilities": [ { "#": "ANALYTICAL_DIMENSION" } ],
+      "@DataWarehouse.consumption.external": true,
+      "elements": {
+        "HierarchyNode": {
+          "@EndUserText.label": "Hierarchy Node",
+          "type": "cds.String",
+          "length": 40,
+          "notNull": true,
+          "@Analytics.dimension": true
+        },
+        "HierarchyNodeText": {
+          "@EndUserText.label": "Hierarchy Node Text",
+          "type": "cds.String",
+          "length": 50,
+          "@Analytics.dimension": true
+        }
+      },
+      "query": {
+        "SELECT": {
+          "from": { "ref": ["ZT2_GLACCTHIERNODET"] },
+          "columns": [
+            { "ref": ["HierarchyNode"] },
+            { "ref": ["HierarchyNodeText"] }
+          ]
+        }
+      }
+    }
+  }
+}

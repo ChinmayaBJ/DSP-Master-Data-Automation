@@ -1,0 +1,54 @@
+{
+  "definitions": {
+    "ZV2_GLACCOUNT_NAME": {
+      "kind": "entity",
+      "@EndUserText.label": "GL Account with Name",
+      "@ObjectModel.modelingPattern": { "#": "ANALYTICAL_DIMENSION" },
+      "@ObjectModel.supportedCapabilities": [ { "#": "ANALYTICAL_DIMENSION" } ],
+      "@DataWarehouse.consumption.external": true,
+      "elements": {
+        "ChartOfAccounts": {
+          "@EndUserText.label": "Chart of Accounts",
+          "type": "cds.String",
+          "length": 4,
+          "notNull": true,
+          "@Analytics.dimension": true
+        },
+        "GLAccount": {
+          "@EndUserText.label": "GL Account",
+          "type": "cds.String",
+          "length": 10,
+          "notNull": true,
+          "@Analytics.dimension": true
+        },
+        "GLAccountName": {
+          "@EndUserText.label": "GL Account Name",
+          "type": "cds.String",
+          "length": 50,
+          "@Analytics.dimension": true
+        }
+      },
+      "query": {
+        "SELECT": {
+          "from": {
+            "join": "left",
+            "args": [
+              { "ref": ["ZT2_GLACCOUNTINCOA"], "as": "A" },
+              { "ref": ["ZT2_GLACCOUNTTEXT"], "as": "B" }
+            ],
+            "on": [
+              { "ref": ["A", "ChartOfAccounts"] }, "=", { "ref": ["B", "ChartOfAccounts"] },
+              "and", { "ref": ["A", "GLAccount"] }, "=", { "ref": ["B", "GLAccount"] },
+              "and", { "ref": ["B", "Language"] }, "=", { "val": "E" }
+            ]
+          },
+          "columns": [
+            { "ref": ["A", "ChartOfAccounts"], "as": "ChartOfAccounts" },
+            { "ref": ["A", "GLAccount"], "as": "GLAccount" },
+            { "ref": ["B", "GLAccountName"], "as": "GLAccountName" }
+          ]
+        }
+      }
+    }
+  }
+}

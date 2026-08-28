@@ -1,0 +1,26 @@
+{
+  "definitions": {
+    "ZT2_GLACCOUNTINCOA": {
+      "kind": "entity",
+      "@ObjectModel.modelingPattern": { "#": "DATA_STRUCTURE" },
+      "@ObjectModel.supportedCapabilities": [ { "#": "DATA_STRUCTURE" } ],
+      "@EndUserText.label": "GL Account in Chart of Accounts (source)",
+      "elements": {
+        "ChartOfAccounts": {
+          "@EndUserText.label": "Chart of Accounts",
+          "type": "cds.String",
+          "length": 4,
+          "key": true,
+          "notNull": true
+        },
+        "GLAccount": {
+          "@EndUserText.label": "GL Account",
+          "type": "cds.String",
+          "length": 10,
+          "key": true,
+          "notNull": true
+        }
+      }
+    }
+  }
+}

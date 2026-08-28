@@ -1,0 +1,41 @@
+{
+  "definitions": {
+    "ZT2_GLACCTHIERNODE": {
+      "kind": "entity",
+      "@ObjectModel.modelingPattern": { "#": "DATA_STRUCTURE" },
+      "@ObjectModel.supportedCapabilities": [ { "#": "DATA_STRUCTURE" } ],
+      "@EndUserText.label": "GL Account Hierarchy Node (source)",
+      "elements": {
+        "GLAccountHierarchy": {
+          "@EndUserText.label": "GL Account Hierarchy",
+          "type": "cds.String",
+          "length": 40,
+          "key": true,
+          "notNull": true
+        },
+        "HierarchyNode": {
+          "@EndUserText.label": "Hierarchy Node",
+          "type": "cds.String",
+          "length": 40,
+          "key": true,
+          "notNull": true
+        },
+        "ParentNode": {
+          "@EndUserText.label": "Parent Node",
+          "type": "cds.String",
+          "length": 40
+        },
+        "NodeType": {
+          "@EndUserText.label": "Node Type",
+          "type": "cds.String",
+          "length": 20
+        },
+        "NodeValue": {
+          "@EndUserText.label": "Node Value",
+          "type": "cds.String",
+          "length": 40
+        }
+      }
+    }
+  }
+}

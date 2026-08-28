@@ -1,0 +1,57 @@
+{
+  "definitions": {
+    "ZV2_GLACCTHIER_NODE": {
+      "kind": "entity",
+      "@EndUserText.label": "GL Account Hierarchy Node",
+      "@ObjectModel.modelingPattern": { "#": "ANALYTICAL_DIMENSION" },
+      "@ObjectModel.supportedCapabilities": [ { "#": "ANALYTICAL_DIMENSION" } ],
+      "@DataWarehouse.consumption.external": true,
+      "elements": {
+        "GLAccountHierarchy": {
+          "@EndUserText.label": "GL Account Hierarchy",
+          "type": "cds.String",
+          "length": 40,
+          "notNull": true,
+          "@Analytics.dimension": true
+        },
+        "HierarchyNode": {
+          "@EndUserText.label": "Hierarchy Node",
+          "type": "cds.String",
+          "length": 40,
+          "notNull": true,
+          "@Analytics.dimension": true
+        },
+        "ParentNode": {
+          "@EndUserText.label": "Parent Node",
+          "type": "cds.String",
+          "length": 40,
+          "@Analytics.dimension": true
+        },
+        "NodeType": {
+          "@EndUserText.label": "Node Type",
+          "type": "cds.String",
+          "length": 20,
+          "@Analytics.dimension": true
+        },
+        "NodeValue": {
+          "@EndUserText.label": "Node Value",
+          "type": "cds.String",
+          "length": 40,
+          "@Analytics.dimension": true
+        }
+      },
+      "query": {
+        "SELECT": {
+          "from": { "ref": ["ZT2_GLACCTHIERNODE"] },
+          "columns": [
+            { "ref": ["GLAccountHierarchy"] },
+            { "ref": ["HierarchyNode"] },
+            { "ref": ["ParentNode"] },
+            { "ref": ["NodeType"] },
+            { "ref": ["NodeValue"] }
+          ]
+        }
+      }
+    }
+  }
+}

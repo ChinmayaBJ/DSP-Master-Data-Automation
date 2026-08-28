@@ -1,0 +1,38 @@
+{
+  "definitions": {
+    "ZT2_GLACCOUNTTEXT": {
+      "kind": "entity",
+      "@ObjectModel.modelingPattern": { "#": "DATA_STRUCTURE" },
+      "@ObjectModel.supportedCapabilities": [ { "#": "DATA_STRUCTURE" } ],
+      "@EndUserText.label": "GL Account Text (source)",
+      "elements": {
+        "ChartOfAccounts": {
+          "@EndUserText.label": "Chart of Accounts",
+          "type": "cds.String",
+          "length": 4,
+          "key": true,
+          "notNull": true
+        },
+        "GLAccount": {
+          "@EndUserText.label": "GL Account",
+          "type": "cds.String",
+          "length": 10,
+          "key": true,
+          "notNull": true
+        },
+        "Language": {
+          "@EndUserText.label": "Language",
+          "type": "cds.String",
+          "length": 2,
+          "key": true,
+          "notNull": true
+        },
+        "GLAccountName": {
+          "@EndUserText.label": "GL Account Name",
+          "type": "cds.String",
+          "length": 50
+        }
+      }
+    }
+  }
+}
