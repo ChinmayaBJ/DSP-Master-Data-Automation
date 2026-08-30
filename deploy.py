@@ -17,9 +17,29 @@ Usage (from this folder, with the venv active):
     python deploy.py --verify   # then read each view back to confirm status
 """
 import sys
+import os
 from pathlib import Path
 
 from dsp_cli import run_cli, obj_read, SPACE
+
+# Path to the CLI's credential cache — stale entries cause every command to fail
+_CLI_CACHE = Path.home() / ".@sap" / "datasphere-cli" / ".cache" / "secrets.json"
+
+
+def _refresh_cli_cache():
+    """Move aside any stale CLI token cache and re-init from the current .env token.
+
+    The CLI caches an access token in secrets.json. When that cached token
+    expires the CLI ignores the fresh ACCESS_TOKEN env var and fails with 401
+    on every command. Fix: remove the cache so the CLI mints fresh from env.
+    """
+    if _CLI_CACHE.exists():
+        _CLI_CACHE.rename(str(_CLI_CACHE) + ".bak")
+    r = run_cli(["config", "cache", "init"], quiet=True)
+    if r.returncode != 0:
+        print("  WARNING: cache init failed — deploy may not work")
+        if r.stderr:
+            print("  ", r.stderr.strip().splitlines()[-1])
 
 CSN_DIR = Path(__file__).parent / "csn"
 
@@ -82,7 +102,7 @@ def _sync(kind, names):
 
 def main(argv):
     print("== Version 2 deploy (idempotent create-or-update) ==")
-    print("Step 1/2  local tables")
+    _refresh_cli_cache()
     tables_ok = _sync("local-tables", TABLES)
 
     print("Step 2/2  views")
